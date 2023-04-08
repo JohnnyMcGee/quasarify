@@ -48,9 +48,9 @@ func Quasarify(word string) (string, error) {
 func randomFormat() string {
 	formats := []string{
 		"space-%v",
-		"galactic-%v",
-		"light-speed-%v",
-		"proton-%v",
+		"galactic %v",
+		"light-speed %v",
+		"proton %v",
 		"quasar-%v",
 	}
 	return formats[rand.Intn(len(formats))]
