@@ -1,44 +1,61 @@
 package main
 
 import (
-	"errors"
 	"fmt"
 	"math/rand"
+	"strings"
 	"time"
 )
 
-func Quasarify(message string) (string, error) {
-	if message == "" {
-		return "", errors.New("empty message")
+func QuasarifyMessage(message string) (string, error) {
+	words := strings.Fields(message)
+	qwords, err := QuasarifyWords(words)
+	if err != nil {
+		return message, err
 	}
-	newMessage := fmt.Sprintf(randomFormat(), message)
-	return newMessage, nil
+	qmessage := strings.Join(qwords, " ")
+	return qmessage, nil
 }
 
-func QuasarifyWords(words []string) (string, error) {
-	qresponse := "👽"
+func QuasarifyWords(words []string) ([]string, error) {
+	qwords := []string{}
 
 	for _, word := range words {
 		translation, err := Quasarify(word)
 		if err != nil {
-			return "", err
+			return []string{}, err
 		}
-		qresponse += "\n"
-		qresponse += translation
+		qwords = append(qwords, translation)
 	}
-	qresponse += "\n🚀"
-	return qresponse, nil
+	return qwords, nil
 }
 
-func init() {
-	rand.Seed(time.Now().UnixNano())
+func Quasarify(word string) (string, error) {
+	if word == "" {
+		return "", nil
+	}
+	isNoun, err := isNoun(word)
+	if err != nil {
+		return word, err
+	}
+	if !isNoun {
+		return word, nil
+	}
+	newWord := fmt.Sprintf(randomFormat(), word)
+	return newWord, nil
 }
 
 func randomFormat() string {
 	formats := []string{
-		"Greetings, %v. I come in peace!",
-		"Quasar transmission: %v... in Space!",
-		"00111011011Computer Transimission: %v. --sent from the Virgo A. galaxy000111111111110110101001111010111",
+		"space-%v",
+		"galactic-%v",
+		"light-speed-%v",
+		"proton-%v",
+		"quasar-%v",
 	}
 	return formats[rand.Intn(len(formats))]
+}
+
+func init() {
+	rand.Seed(time.Now().UnixNano())
 }

@@ -7,8 +7,9 @@ import (
 
 func main() {
 	log.SetPrefix("quasarify: ")
-	// message := "this is a normal message from earth";
-	quasar, err := QuasarifyWords([]string{"What's", "up", "dawg?"})
+	message := "this is a normal message from earth"
+	quasar, err := QuasarifyMessage(message)
+
 	if err != nil {
 		log.Fatal(err)
 	}
