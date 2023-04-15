@@ -9,7 +9,7 @@ import (
 
 func init() {
     // Register an HTTP function with the Functions Framework
-    functions.HTTP("MyHTTPFunction", myHTTPFunction)
+    functions.HTTP("api", myHTTPFunction)
 }
 
 // Function myHTTPFunction is an HTTP handler
