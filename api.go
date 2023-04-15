@@ -1,30 +1,21 @@
-package quasarify
+package api
 
 import (
-	"encoding/json"
-	"fmt"
-	"html"
+	"io"
 	"net/http"
 
 	"github.com/GoogleCloudPlatform/functions-framework-go/functions"
 )
 
 func init() {
-        functions.HTTP("HelloHTTP", HelloHTTP)
+    // Register an HTTP function with the Functions Framework
+    functions.HTTP("MyHTTPFunction", myHTTPFunction)
 }
 
-// HelloHTTP is an HTTP Cloud Function with a request parameter.
-func HelloHTTP(w http.ResponseWriter, r *http.Request) {
-        var d struct {
-                Name string `json:"name"`
-        }
-        if err := json.NewDecoder(r.Body).Decode(&d); err != nil {
-                fmt.Fprint(w, "Hello, World!")
-                return
-        }
-        if d.Name == "" {
-                fmt.Fprint(w, "Hello, World!")
-                return
-        }
-        fmt.Fprintf(w, "Hello, %s!", html.EscapeString(d.Name))
+// Function myHTTPFunction is an HTTP handler
+func myHTTPFunction(w http.ResponseWriter, r *http.Request) {
+    // Your code here
+
+    // Send an HTTP response
+    io.WriteString(w, "OK")
 }
