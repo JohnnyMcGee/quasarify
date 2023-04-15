@@ -1,4 +1,4 @@
-module johnnymcgee/quasarify/functions
+module github.com/JohnnyMcGee/quasarify/functions
 
 go 1.20
 
