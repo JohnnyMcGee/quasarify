@@ -16,9 +16,11 @@ func init() {
 func myHTTPFunction(w http.ResponseWriter, r *http.Request) {
 	message := r.URL.Query().Get("message")
 	qMessage := ""
-	if message == "" {
+	if message != "" {
 		qMessage = QuasarifyMessage(message)
-	}
+	} else {
+    qMessage = "Transmission received... in space..."
+    }
 	// Send an HTTP response
 	io.WriteString(w, qMessage)
 }
